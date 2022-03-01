@@ -5,14 +5,21 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreGroupRequest;
 use App\Http\Requests\UpdateGroupRequest;
 use App\Models\Group;
-use App\Models\Lecture;
 use App\Services\PlanService;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\DB;
 
 class GroupController extends Controller
 {
+    private Group $group;
+
+    /**
+     * @param Group $group
+     */
+    public function __construct(Group $group)
+    {
+        $this->group = $group;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +27,7 @@ class GroupController extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json(Group::all());
+        return response()->json($this->group->all());
     }
 
     /**
@@ -31,7 +38,7 @@ class GroupController extends Controller
      */
     public function store(StoreGroupRequest $request): JsonResponse
     {
-        return response()->json(Group::create($request->validated()));
+        return response()->json($this->group->create($request->validated()));
     }
 
     /**
@@ -77,8 +84,9 @@ class GroupController extends Controller
      */
     public function getPlan(Group $group, PlanService $planService): JsonResponse
     {
-        $arGroup = $group->load(['plan']);
-        $data = $planService->getPlanData($arGroup);
+//        $arGroup = $group->load(['plan']);
+//        dd($arGroup);
+        $data = $planService->getPlanData($group);
         return response()->json($data->plan);
     }
 }

@@ -9,6 +9,16 @@ use Illuminate\Http\JsonResponse;
 
 class StudentController extends Controller
 {
+    private Student $student;
+
+    /**
+     * @param Student $student
+     */
+    public function __construct(Student $student)
+    {
+        $this->student = $student;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +26,7 @@ class StudentController extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json(Student::all());
+        return response()->json($this->student->all());
     }
 
     /**
@@ -27,7 +37,7 @@ class StudentController extends Controller
      */
     public function store(StoreStudentRequest $request): JsonResponse
     {
-        return response()->json(Student::create($request->validated()));
+        return response()->json($this->student->create($request->validated()));
     }
 
     /**

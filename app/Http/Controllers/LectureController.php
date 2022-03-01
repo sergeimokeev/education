@@ -6,11 +6,18 @@ use App\Http\Requests\StoreLectureRequest;
 use App\Http\Requests\UpdateLectureRequest;
 use App\Models\Lecture;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class LectureController extends Controller
 {
+    private Lecture $lecture;
+
+    /**
+     * @param Lecture $lecture
+     */
+    public function __construct(Lecture $lecture)
+    {
+        $this->lecture = $lecture;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +25,7 @@ class LectureController extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json(Lecture::all());
+        return response()->json($this->lecture->all());
     }
 
     /**
@@ -29,7 +36,7 @@ class LectureController extends Controller
      */
     public function store(StoreLectureRequest $request): JsonResponse
     {
-        return response()->json(Lecture::create($request->validated()));
+        return response()->json($this->lecture->create($request->validated()));
     }
 
     /**
