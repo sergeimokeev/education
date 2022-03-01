@@ -16,12 +16,11 @@ class GroupController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Group $group
      * @return JsonResponse
      */
-    public function index(Group $group): JsonResponse
+    public function index(): JsonResponse
     {
-        return response()->json($group::all());
+        return response()->json(Group::all());
     }
 
     /**
@@ -73,13 +72,13 @@ class GroupController extends Controller
 
     /**
      * @param Group $group
+     * @param PlanService $planService
      * @return JsonResponse
      */
-    public function getPlan(Group $group): JsonResponse
+    public function getPlan(Group $group, PlanService $planService): JsonResponse
     {
         $arGroup = $group->load(['plan']);
-        $data = (new PlanService())->getPlanData($arGroup);
-
+        $data = $planService->getPlanData($arGroup);
         return response()->json($data->plan);
     }
 }
