@@ -24,7 +24,8 @@ class StorePlanRequest extends FormRequest
     public function rules()
     {
         return [
-            'lectures' => ['required']
+            'lectures' => ['required'],
+            'group_id' => ['required', 'exists:groups,id']
         ];
     }
 }
