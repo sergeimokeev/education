@@ -26,8 +26,7 @@ class UpdateStudentRequest extends FormRequest
     {
         return [
             'firstname' => ['required'],
-//            'email' => ['required', 'unique:students,email,' . $this->route('student.id')],
-            'group_id' => ['exists:groups,id']
+            'group_id' => ['nullable', 'exists:groups,id']
         ];
     }
 }
