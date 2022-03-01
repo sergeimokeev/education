@@ -2,6 +2,14 @@
 
 namespace App\Providers;
 
+use App\Exceptions\GroupNotFoundException;
+use App\Exceptions\LectureNotFoundException;
+use App\Exceptions\PlanNotFoundException;
+use App\Exceptions\StudentNotFoundException;
+use App\Models\Group;
+use App\Models\Lecture;
+use App\Models\Plan;
+use App\Models\Student;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -46,6 +54,22 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
+        });
+
+        $this->model('student', Student::class, function () {
+            throw new StudentNotFoundException();
+        });
+
+        $this->model('group', Group::class, function () {
+            throw new GroupNotFoundException();
+        });
+
+        $this->model('lecture', Lecture::class, function () {
+            throw new LectureNotFoundException();
+        });
+
+        $this->model('plan', Plan::class, function () {
+            throw new PlanNotFoundException();
         });
     }
 

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('group_id')->constrained();
             $table->foreignId('lecture_id')->constrained();
+            $table->index(['group_id', 'lecture_id']);
         });
     }
 
