@@ -25,7 +25,7 @@ class StorePlanRequest extends FormRequest
     {
         return [
             'lectures' => ['required'],
-            'group_id' => ['required', 'exists:groups,id']
+            'group_id' => ['required', 'exists:groups,id', 'unique:plans']
         ];
     }
 }

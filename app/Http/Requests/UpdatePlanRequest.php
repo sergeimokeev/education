@@ -25,7 +25,7 @@ class UpdatePlanRequest extends FormRequest
     {
         return [
             'lectures' => ['required'],
-            'group_id' => ['required', 'exists:groups,id']
+            'group_id' => ['required', 'exists:groups,id', 'unique:plans,group_id,' . $this->route('plan.id')]
         ];
     }
 }
