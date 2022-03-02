@@ -51,5 +51,5 @@ Route::group(['prefix' => 'plans'], function() {
 Route::fallback(function () {
     return response()->json([
         'message' => 'Invalid page requested'
-    ]);
+    ], 422);
 });
