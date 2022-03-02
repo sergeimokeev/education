@@ -47,3 +47,9 @@ Route::group(['prefix' => 'plans'], function() {
     Route::post('', [PlanController::class, 'store']);
     Route::put('/{plan}', [PlanController::class, 'update']);
 });
+
+Route::fallback(function () {
+    return response()->json([
+        'message' => 'Invalid page requested'
+    ]);
+});
